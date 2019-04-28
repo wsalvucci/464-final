@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import objects.Connector;
 import objects.Match;
 import objects.Team;
 
@@ -13,12 +12,11 @@ public class MainDriver {
 	
 	static ArrayList<Team> listOfTeams = new ArrayList<Team>();
 	static ArrayList<Match> listOfMatches = new ArrayList<Match>();
-	static ArrayList<Connector> listOfConnectors = new ArrayList<Connector>();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try {
 			Scanner sc = new Scanner(new File("TeamList"));
+			//For each line, split the line into team, wins, and losses, and build a Team object per line from those values
 			while (sc.hasNextLine()) {
 				String[] teamInfo = sc.nextLine().split(",");
 				String teamName = teamInfo[0];
@@ -29,6 +27,7 @@ public class MainDriver {
 			sc.close();
 			
 			sc = new Scanner(new File("MatchList"));
+			//For each line, split the line into team1 and team2, and build a Match object per line from those values
 			while (sc.hasNextLine()) {
 				String[] teams = sc.nextLine().split(",");
 				String team1Name = teams[0];
@@ -42,25 +41,17 @@ public class MainDriver {
 						team2 = team;
 				}
 				if (team1 == null || team2 == null)
-					System.out.println("Team in match list not found in team list");
+					System.err.println("Team in match list not found in team list: " + team1.teamName + " vs " + team2.teamName);
 				Match newMatch = new Match(team1, team2);
 				listOfMatches.add(newMatch);
-				Connector connector1 = new Connector(team1, newMatch);
-				Connector connector2 = new Connector(team2, newMatch);
-				newMatch.connections.add(connector1);
-				newMatch.connections.add(connector2);
-				team1.connections.add(connector1);
-				team2.connections.add(connector2);
-				listOfConnectors.add(connector1);
-				listOfConnectors.add(connector2);
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Algorithm algorithm = new Algorithm(listOfTeams, listOfMatches, listOfConnectors);
+		//Build a new algorithm using the list of teams and matches and print the results of the algorithms
+		Algorithm algorithm = new Algorithm(listOfTeams, listOfMatches);
 		ArrayList<Team> viableTeams = algorithm.findViableTeams();
 		System.out.println("Done");
 		System.out.println(" ");

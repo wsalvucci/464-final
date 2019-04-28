@@ -2,7 +2,6 @@ package driver;
 
 import java.util.ArrayList;
 
-import objects.Connector;
 import objects.Match;
 import objects.Team;
 
@@ -10,14 +9,12 @@ public class Algorithm {
 	
 	private ArrayList<Team> listOfTeams;
 	private ArrayList<Match> listOfMatches;
-	private ArrayList<Connector> listOfConnectors;
 	private int gamesPerSeason = 162;
 	
-	public Algorithm(ArrayList<Team> listOfTeams, ArrayList<Match> listOfMatches, ArrayList<Connector> listOfConnectors) {
+	public Algorithm(ArrayList<Team> listOfTeams, ArrayList<Match> listOfMatches) {
 		System.out.println("Loading algorithm");
 		this.listOfTeams = listOfTeams;
 		this.listOfMatches = listOfMatches;
-		this.listOfConnectors = listOfConnectors;
 	}
 	
 	public ArrayList<Team> findViableTeams() {
@@ -82,15 +79,6 @@ public class Algorithm {
 		return teams;
 	}
 	
-	private ArrayList<Connector> copyConnectors() {
-		ArrayList<Connector> connectors = new ArrayList<Connector>();
-		
-		for (Connector connector : this.listOfConnectors)
-			connectors.add(connector.copy());
-		
-		return connectors;
-	}
-	
 	private ArrayList<Match> copyMatches() {
 		ArrayList<Match> matches = new ArrayList<Match>();
 		
@@ -106,7 +94,6 @@ public class Algorithm {
 		//Get all the connectors connecting to the opposing team that haven't been set
 		ArrayList<Integer> matchesToProcess = new ArrayList<Integer>();
 		System.out.println("Processing matches for " + team.teamName);
-		System.out.println("Total # of matches in league: " + matches.size());
 		for (int i=0; i < matches.size(); i++) {
 			if (matches.get(i).team1.teamName.equals(team.teamName) || matches.get(i).team2.teamName.equals(team.teamName)) {
 				if (matches.get(i).winner == null)
@@ -196,7 +183,7 @@ public class Algorithm {
 					if (match.winner != null && match.winner.teamName.equals(teamList.get(i).teamName))
 						currentWeight++;
 				}
-				System.out.println(teamList.get(i).teamName + " has already won " + currentWeight + " games");
+				System.out.println(teamList.get(i).teamName + " has already been given " + currentWeight + " games in this combination");
 				
 				ArrayList<ArrayList<Match>> combinations = getAllCombinations(matches, teamList.get(i));
 				
