@@ -63,6 +63,10 @@ public class MainDriver {
 		Algorithm algorithm = new Algorithm(listOfTeams, listOfMatches, listOfConnectors);
 		ArrayList<Team> viableTeams = algorithm.findViableTeams();
 		System.out.println("Done");
+		System.out.println(" ");
+		System.out.println("List of Viable Teams:");
+		for (Team team : viableTeams)
+			System.out.println(team.teamName);
 	}
 
 }

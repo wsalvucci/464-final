@@ -5,6 +5,7 @@ public class Connector {
 	public Team team;
 	public Match match;
 	public boolean win = false;
+	public boolean set = false;
 
 	public Connector(Team team, Match match) {
 		this.team = team;
