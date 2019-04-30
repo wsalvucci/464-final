@@ -14,8 +14,11 @@ public class MainDriver {
 	static ArrayList<Match> listOfMatches = new ArrayList<Match>();
 
 	public static void main(String[] args) {
+		
+		long startTime = System.nanoTime();
+		
 		try {
-			Scanner sc = new Scanner(new File("TeamList"));
+			Scanner sc = new Scanner(new File("NBATeams.csv"));
 			//For each line, split the line into team, wins, and losses, and build a Team object per line from those values
 			while (sc.hasNextLine()) {
 				String[] teamInfo = sc.nextLine().split(",");
@@ -26,7 +29,7 @@ public class MainDriver {
 			}
 			sc.close();
 			
-			sc = new Scanner(new File("MatchList"));
+			sc = new Scanner(new File("NBASchedule.csv"));
 			//For each line, split the line into team1 and team2, and build a Match object per line from those values
 			while (sc.hasNextLine()) {
 				String[] teams = sc.nextLine().split(",");
@@ -58,6 +61,10 @@ public class MainDriver {
 		System.out.println("List of Viable Teams:");
 		for (Team team : viableTeams)
 			System.out.println(team.teamName);
+		
+		long endTime = System.nanoTime();
+		
+		System.out.println("Operation completed in " + (Math.floor((endTime-startTime) / 1000000000 * 1000) / 1000) + " seconds");
 	}
 
 }

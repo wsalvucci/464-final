@@ -9,7 +9,7 @@ public class Algorithm {
 	
 	private ArrayList<Team> listOfTeams;
 	private ArrayList<Match> listOfMatches;
-	private int gamesPerSeason = 162;
+	private int gamesPerSeason = 82;
 	
 	public Algorithm(ArrayList<Team> listOfTeams, ArrayList<Match> listOfMatches) {
 		System.out.println("Loading algorithm");
@@ -115,18 +115,18 @@ public class Algorithm {
 				ArrayList<Match> combination = new ArrayList<Match>();
 				char[] flags = Integer.toBinaryString(i).toCharArray();
 				for (int j=0; j < numOfElements;j++)
-					System.out.print("L");
+					//System.out.print("L");
 				for (Character flag : flags) {
 					switch(flag) {
 					case '0':
-						System.out.print("L");
+						//System.out.print("L");
 						break;
 					case '1':
-						System.out.println("W");
+						//System.out.println("W");
 						break;
 					}
 				}
-				System.out.println(" ");
+				//System.out.println(" ");
 				for (int j = flags.length; j < Math.sqrt(numOfCombinations); j++) {
 					char[] newFlags = new char[flags.length+1];
 					newFlags[0] = '0';
@@ -230,7 +230,7 @@ public class Algorithm {
 			}
 		}
 		System.out.println("\n");
-		System.out.println("Team: " + team.teamName + " eliminated");
+		System.out.println("Team " + team.teamName + " eliminated");
 		return false;
 	}
 }
